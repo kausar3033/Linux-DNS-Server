@@ -50,9 +50,9 @@
 
         cp named.conf.local named.conf.local.bak
 
-        echo -e "zone "ibos.io" {
+        echo -e "zone "test.io" {
                 type master;
-                file "/etc/bind/db.ibos.io";
+                file "/etc/bind/db.test.io";
         };
         
  # define reverse zone files
@@ -76,41 +76,41 @@
         ; BIND data file for local loopback interface
         ;
         $TTL    604800
-        @       IN      SOA     prince-supershop.ibos.io. admin.ibos.io. (
+        @       IN      SOA     prince-supershop.test.io. admin.test.io. (
                                       3         ; Serial
                                  604800         ; Refresh
                                   86400         ; Retry
                                 2419200         ; Expire
                                  604800 )       ; Negative Cache TTL
         ;
-        @       IN      NS      prince-supershop.ibos.io.
+        @       IN      NS      prince-supershop.test.io.
 
-        prince-supershop	IN	A	192.168.2.20" >> db.ibos.io
+        prince-supershop	IN	A	192.168.2.20" >> db.test.io
 
 
 
 # check configuration
 
-        named-checkzone ibos.io db.ibos.io
+        named-checkzone test.io db.test.io
 
 
 
 #create reverse lookup zone
 
         echo -e ";
-        ; BIND reverse data file for ibos.local zone
+        ; BIND reverse data file for test.local zone
         ;
         $TTL    604800
-        @       IN      SOA     prince-supershop.ibos.io. admin.ibos.io. (
+        @       IN      SOA     prince-supershop.test.io. admin.test.io. (
                                       2         ; Serial
                                  604800         ; Refresh
                                   86400         ; Retry
                                 2419200         ; Expire
                                  604800 )       ; Negative Cache TTL
         ;
-        @       IN      NS      prince-supershop.ibos.io.
+        @       IN      NS      prince-supershop.test.io.
 
-        20	IN	PTR	ibos.ibos.local." >> db.192.168.2
+        20	IN	PTR	test.test.local." >> db.192.168.2
 
 
 
