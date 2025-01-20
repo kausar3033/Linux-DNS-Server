@@ -76,47 +76,48 @@
         ; BIND data file for local loopback interface
         ;
         $TTL    604800
-        @       IN      SOA     test.stepup.com.bd. admin.stepup.com.bd. (
+        @       IN      SOA     dns.stepup.com.bd. admin.stepup.com.bd. (
                                       3         ; Serial
                                  604800         ; Refresh
                                   86400         ; Retry
                                 2419200         ; Expire
                                  604800 )       ; Negative Cache TTL
         ;
-        @       IN      NS      prince-supershop.test.io.
+        @       IN      NS      dns.stepup.com.bd.
 
-        dev	IN	A	192.168.68.93" >> db.stepup.com.bd
+        dns	IN	A	192.168.68.93
+        dev	IN	A	192.168.68.96" >> db.stepup.com.bd
 
 
 
 # check configuration
 
-        named-checkzone ibos.io db.test.io
+        named-checkzone stepup.com.bd db.stepup.com.bd
 
 
 
 #create reverse lookup zone
 
         echo -e ";
-        ; BIND reverse data file for test.local zone
+        ; BIND reverse data file for stepup.local zone
         ;
         $TTL    604800
-        @       IN      SOA     prince-supershop.test.io. admin.test.io. (
+        @       IN      SOA     dev.stepup.com.bd. admin.stepup.com.bd. (
                                       2         ; Serial
                                  604800         ; Refresh
                                   86400         ; Retry
                                 2419200         ; Expire
                                  604800 )       ; Negative Cache TTL
         ;
-        @       IN      NS      prince-supershop.test.io.
-
-        20	IN	PTR	test.test.local." >> db.192.168.2
+        @       IN      NS      dns.stepup.com.bd.
+        93      IN      PTR     dns.stepup.com.bd
+        96	IN	PTR	dev.stepup.com.bd." >> db.192.168.93
 
 
 
 # check configuration
 
-        sudo named-checkzone 2.168.192.in-addr.arpa db.192.168.2
+        sudo named-checkzone 93.168.192.in-addr.arpa db.192.168.93
 
 
 # edit the server dns entry to use its own dns server
