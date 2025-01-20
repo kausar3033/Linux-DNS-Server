@@ -15,7 +15,7 @@
         echo -e "acl trustedclients {
                 localhost;
                 localnets;
-                192.168.2.0/24;
+                192.168.68.0/24;
         };
 
         options {
@@ -35,7 +35,7 @@
                 dnssec-validation no;
 
                 listen-on-v6 port 53 { ::1; };
-                listen-on port 53 { 127.0.0.1; 192.168.2.20; };
+                listen-on port 53 { 127.0.0.1; 192.168.68.93; };
         };" >> named.conf.options
 
 
@@ -50,16 +50,16 @@
 
         cp named.conf.local named.conf.local.bak
 
-        echo -e "zone "ibos.io" {
+        echo -e "zone "stepup.com.bd" {
                 type master;
-                file "/etc/bind/db.test.io";
+                file "/etc/bind/db.stepup.com.bd";
         };
         
  # define reverse zone files
 
-        zone "2.168.192.in-addr.arpa" {
+        zone "68.168.192.in-addr.arpa" {
                 type master;
-                file "/etc/bind/db.192.168.2";
+                file "/etc/bind/db.192.168.68";
         };" >> named.conf.local
 
 
@@ -76,7 +76,7 @@
         ; BIND data file for local loopback interface
         ;
         $TTL    604800
-        @       IN      SOA     prince-supershop.test.io. admin.test.io. (
+        @       IN      SOA     test.stepup.com.bd. admin.stepup.com.bd. (
                                       3         ; Serial
                                  604800         ; Refresh
                                   86400         ; Retry
@@ -85,7 +85,7 @@
         ;
         @       IN      NS      prince-supershop.test.io.
 
-        prince-supershop	IN	A	192.168.2.20" >> db.test.io
+        dev	IN	A	192.168.68.93" >> db.stepup.com.bd
 
 
 
